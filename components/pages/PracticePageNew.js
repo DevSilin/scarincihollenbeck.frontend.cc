@@ -8,7 +8,6 @@ import PracticeContent from 'components/organisms/practices/PracticeContent';
 import PracticePrintPage from 'components/organisms/practices/PracticePrintPage';
 import usePrintLogic from 'hooks/usePrintLogic';
 import SubHeaderKeyContacts from 'layouts/SubHeader/SubHeaderKeyContacts';
-import { DEFAULT_SCHEMA_FAQ } from 'utils/constants';
 
 const PracticeAnchors = dynamic(() => import('components/organisms/practices/PracticeAnchors'));
 const PracticeAttorneys = dynamic(() => import('components/organisms/practices/PracticeAttorneys'));
@@ -108,10 +107,13 @@ const PracticePageNew = ({
       <BasicSiteHead
         title={practice?.seo?.title}
         metaDescription={practice?.seo?.metaDesc}
+        ogImage={practice?.seo?.opengraphImage?.sourceUrl}
         canonicalUrl={canonicalUrl}
         personDataForSchema={attorneysSchemaData}
         breadcrumbs={breadcrumbs}
-        faqData={!empty(faq) ? faq : DEFAULT_SCHEMA_FAQ}
+        // FAQPage only from the practice's own FAQ: the firm-wide FAQ that the
+        // page shows when the practice has none is not about this practice.
+        faqData={faq}
         webPageData={webPageData}
         serviceSchemaData={{
           name: practice?.title,

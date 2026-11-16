@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import CompactImage from 'components/atoms/CompactImage';
 import React, { useCallback } from 'react';
 import { Title20 } from 'styles/common/Typography.style';
 import {
@@ -29,6 +29,7 @@ const LibraryCard = ({
   tags,
   onTagClick,
   isDarker = false,
+  titleAs,
 }) => {
   const handleTagClick = useCallback(
     (e, tag) => {
@@ -42,7 +43,7 @@ const LibraryCard = ({
   return (
     <LibraryCardBox className={isDarker ? 'darker' : ''}>
       <LibraryCardImage $isEmptyImage={!image || empty(image)}>
-        <Image
+        <CompactImage
           src={image || SHDiamond}
           alt={`${title} post image`}
           width={500}
@@ -53,7 +54,11 @@ const LibraryCard = ({
       </LibraryCardImage>
 
       <LibraryCardContent>
-        {!empty(title) && <Title20 title={title}>{title}</Title20>}
+        {!empty(title) && (
+          <Title20 as={titleAs} title={title}>
+            {title}
+          </Title20>
+        )}
         {!empty(description) && (
           <LibraryCardText>
             <JSXWithDynamicLinks HTML={description} />
@@ -94,6 +99,7 @@ const LibraryCard = ({
               <LibraryTag key={tag?.databaseId || tag?.id}>
                 <LibraryTagLink
                   href={`/library/search?tag=${tag?.databaseId || tag?.id}`}
+                  rel="nofollow"
                   onClick={(e) => handleTagClick(e, tag)}
                 >
                   {tag?.name}

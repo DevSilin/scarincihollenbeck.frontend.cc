@@ -123,6 +123,13 @@ export const FIRM_BLOG_PAGES = [
   },
 ];
 
+/**
+ * `designation` of the firm itself when it stands in for an attorney: the
+ * fallback author below and the "Scarinci Hollenbeck, LLC" attorney profile in
+ * WordPress (/attorneys/scarinci-hollenbeck) that editors pick as a post author.
+ */
+export const FIRM_DESIGNATION = 'The Firm';
+
 export const ScarinciHollenbeckAuthor = [
   {
     uri: '/attorneys',
@@ -135,7 +142,7 @@ export const ScarinciHollenbeckAuthor = [
     profileImage: SHDiamond,
     email: SITE_EMAIL,
     phoneNumber: SITE_PHONE,
-    designation: 'The Firm',
+    designation: FIRM_DESIGNATION,
     author: {
       uri: '/firm-overview',
     },
@@ -148,7 +155,7 @@ export const ScarinciHollenbeckKeyContact = {
   display_name: 'Scarinci Hollenbeck, LLC',
   keyContactsByPractice: null,
   profileImage: SHDiamond,
-  designation: 'The Firm',
+  designation: FIRM_DESIGNATION,
   phoneNumber: SITE_PHONE,
   email: SITE_EMAIL,
   officeLocation: [
@@ -589,6 +596,8 @@ export const ALGOLIA_SEARCH_INDEX = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_INDEX
 export const CURRENT_DOMAIN = process.env.NODE_ENV === 'production'
   ? 'https://scarincihollenbeck.com'
   : 'http://localhost:7700';
+// Branded 1200x630 share image for pages without their own (Yoast or featured) image.
+export const DEFAULT_OG_IMAGE = `${CURRENT_DOMAIN}/images/og-default.jpg`;
 export const GET_IN_TOUCH_FORM_API = process.env.NEXT_PUBLIC_GET_IN_TOUCH_FORM_API;
 export const CAREERS_FORM_API = process.env.NEXT_PUBLIC_CAREERS_FORM_API;
 export const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;

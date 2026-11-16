@@ -46,9 +46,12 @@ const AttorneysPage = ({
       <BasicSiteHead
         title={seo.title}
         metaDescription={seo.metaDesc}
+        ogImage={seo?.opengraphImage?.sourceUrl}
         canonicalUrl={canonicalUrl}
         breadcrumbs={breadcrumbs}
         webPageData={webPageData}
+        // Deliberately kept: on the firm-wide directory the firm FAQ is the
+        // page's own content (shown below), unlike practices and offices.
         faqData={DEFAULT_SCHEMA_FAQ}
         itemListData={itemListData}
         itemListMeta={itemListMeta}
