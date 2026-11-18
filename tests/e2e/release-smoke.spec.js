@@ -33,7 +33,26 @@ const PAGES = [
 test.describe.configure({ retries: 1 });
 test.use({ viewport: { width: 1440, height: 900 } });
 
-test.beforeEach(async ({ page }) => {
+// The Vercel Firewall answers 429 above 60 pages a minute from one IP. A test
+// costs more than its own page.goto there, and unpaced the spec (25 tests in
+// about a minute) got 429 on its last tests on 13.11 and twice on 18.11. Start
+// tests at least TEST_GAP_MS apart on real hosts. A retry runs in a new worker,
+// which waits too, since it cannot know when the failed test started.
+const TEST_GAP_MS = 4000;
+let lastTestStart = 0;
+
+test.beforeEach(async ({ page, baseURL }) => {
+  if (!/\/\/(localhost|127\.0\.0\.1)[:/]/.test(`${baseURL}/`)) {
+    const wait = lastTestStart
+      ? lastTestStart + TEST_GAP_MS - Date.now()
+      : TEST_GAP_MS;
+    if (wait > 0) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, wait);
+      });
+    }
+    lastTestStart = Date.now();
+  }
   await blockAnalytics(page);
 });
 
