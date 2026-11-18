@@ -707,6 +707,7 @@ export const homePageQuery = `query HomePageQuery {
             title
             databaseId
             uri
+            pageReady
           }
         }
       }
