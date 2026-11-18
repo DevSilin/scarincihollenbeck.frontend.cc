@@ -679,8 +679,12 @@ export const latestPostTabs = [
 
 export const NAVBAR_SERVICES_TABS = ['Practices', 'Industries'];
 
+// Industries whose pages have real content; the others still show a
+// placeholder, so their links point to /services#industries. Temporary: the
+// backend will expose a "page ready" field in REST/GraphQL to replace this list.
 export const readyIndustriesUrls = [
   '/industries/cannabis',
+  '/industries/data-centers',
   '/industries/entertainment-and-media',
   '/industries/government-strategies',
   '/industries/real-estate',
