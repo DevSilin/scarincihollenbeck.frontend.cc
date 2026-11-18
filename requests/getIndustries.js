@@ -6,7 +6,7 @@ const sanitizeIndustries = (data) => {
 
   return data?.map((item, index) => ({
     ...item,
-    uri: getIndustryLink(item?.uri),
+    uri: getIndustryLink(item),
   }));
 };
 

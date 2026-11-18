@@ -41,7 +41,7 @@ const IndustriesSection = ({
                 image={
                   item?.industryContent?.industryIcon?.uploadedIcon?.sourceUrl
                 }
-                link={getIndustryLink(item?.uri, null)}
+                link={getIndustryLink(item, null)}
               />
             ))}
           </IndustriesCards>
