@@ -7,17 +7,14 @@ import ServicesPage from 'components/pages/ServicesPage';
 import { getIndustries } from 'requests/getIndustries';
 import { sortByKey } from 'utils/helpers';
 import { getPractices } from 'requests/getPractices';
-import {
-  PRODUCTION_URL,
-  CURRENT_DOMAIN,
-  readyIndustriesUrls,
-} from 'utils/constants';
+import { PRODUCTION_URL, CURRENT_DOMAIN } from 'utils/constants';
 
 const sanitizeIndustries = (industries) => industries.map((industry) => ({
   databaseId: industry?.databaseId,
   title: industry?.title,
   description: industry?.industryContent?.description || '',
   uri: industry?.uri,
+  pageReady: industry?.pageReady === true,
   selectedIcon: industry?.industryContent?.industryIcon?.selectedIcon,
   uploadedIcon: industry?.industryContent?.industryIcon?.uploadedIcon,
   image: industry?.industryContent?.industryImage?.sourceUrl,
@@ -70,7 +67,7 @@ export const getStaticProps = async () => {
   });
 
   const industryItems = sanitizedIndustries
-    .filter((industry) => readyIndustriesUrls.includes(industry.uri))
+    .filter((industry) => industry.pageReady)
     .map((industry) => ({
       name: industry.title,
       url: `${PRODUCTION_URL}${industry.uri}`,

@@ -4,7 +4,6 @@ import {
   CLOUDINARY_BASE_URL,
   IMAGE_UPLOAD_CLOUDINARY,
   PRODUCTION_URL,
-  readyIndustriesUrls,
 } from './constants';
 
 // Strip HTML tags from a string and trim whitespace
@@ -355,7 +354,13 @@ export const attorneysSanitize = (attorneysArr) => {
     });
 };
 
-export const getIndustryLink = (uri, defaultUri = '/services#industries') => (readyIndustriesUrls.includes(uri) ? uri : defaultUri);
+// Industry pages without real content yet show a placeholder, so their links
+// point elsewhere. Editors switch "Page ready" per industry in WordPress
+// (`pageReady` in REST wcra/v1/industries and GraphQL, tasks #16).
+export const getIndustryLink = (
+  industry,
+  defaultUri = '/services#industries',
+) => (industry?.pageReady === true ? industry.uri : defaultUri);
 
 export const filterTunePractices = (practice) => {
   const titleMap = {

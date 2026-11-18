@@ -31,7 +31,7 @@ const ServicesIndustries = ({ industries }) => {
               <ServicesIndustriesCard
                 key={item?.databaseId}
                 title={item?.title}
-                link={getIndustryLink(item?.uri, null)}
+                link={getIndustryLink(item, null)}
                 onClickModalOpener={onClickModalOpener}
               />
             ))}
